@@ -8,12 +8,15 @@
     "build": "react-scripts build"
   },
   "dependencies": {
+    "@web3-react/core": "^6.1.9",
+    "@web3-react/injected-connector": "^6.0.7",
     "classnames": "^2.2.6",
     "pwacompat": "^2.0.17",
     "query-string": "^6.13.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "save-svg-as-png": "^1.4.17"
+    "save-svg-as-png": "^1.4.17",
+    "web3": "^1.6.0"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.10",

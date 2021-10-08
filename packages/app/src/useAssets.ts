@@ -1,12 +1,19 @@
 import { useState, useEffect } from 'react'
 import queryString from 'query-string'
-import { DEFAULT_ASSETS, SelectedAssets, getLayerAssets, Layer, getCategoryLayers } from './duck'
+import {
+  DEFAULT_ASSETS,
+  SelectedAssets,
+  getLayerAssets,
+  Layer,
+  getCategoryLayers,
+} from './duck'
 
 const getRandomInt = (max: number) =>
   Math.floor(Math.random() * Math.floor(max))
 
 export default () => {
-  const [selectedAssets, setSelectedAssets] = useState<SelectedAssets>(DEFAULT_ASSETS)
+  const [selectedAssets, setSelectedAssets] =
+    useState<SelectedAssets>(DEFAULT_ASSETS)
 
   useEffect(() => {
     const defaultAssets = queryParamsToSelectedAssets()
@@ -21,7 +28,7 @@ export default () => {
 
   const randomize = () => {
     const randomAssets: SelectedAssets = {}
-    getCategoryLayers().forEach(layer => {
+    getCategoryLayers().forEach((layer) => {
       const assets = getLayerAssets(layer.id)
       const index = getRandomInt(assets.length + 1)
       if (index === assets.length) {

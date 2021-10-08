@@ -14,10 +14,8 @@ const ServiceWorkerContext = React.createContext<ServiceWorkerContextProps>({
 })
 
 export const ServiceWorkerProvider: FC = ({ children }) => {
-  const [
-    waitingServiceWorker,
-    setWaitingServiceWorker,
-  ] = useState<ServiceWorker | null>(null)
+  const [waitingServiceWorker, setWaitingServiceWorker] =
+    useState<ServiceWorker | null>(null)
   const [isRegisterSucceed, setRegisterSucceed] = useState<boolean>(false)
   const [isUpdateAvailable, setUpdateAvailable] = useState<boolean>(false)
 

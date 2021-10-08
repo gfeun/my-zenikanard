@@ -1,0 +1,11 @@
+.connector {
+  position: absolute;
+  right: 30px;
+  top: 50px;
+  z-index: 5;
+}
+
+.address {
+  border-radius: 25%;
+  background-color: grey;
+}
