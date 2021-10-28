@@ -2,8 +2,10 @@ import React, { useMemo, useEffect, FC, Suspense } from 'react'
 
 import { InjectedConnector } from '@web3-react/injected-connector'
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
+import { Web3WalletButton } from './Web3WalletButton'
 
 import styles from './Web3Connector.module.css'
+import { connect } from 'http2'
 
 const Web3Connector = () => {
   const AVALANCHE_TESTNET_PARAMS = {
@@ -22,20 +24,9 @@ const Web3Connector = () => {
     supportedChainIds: [parseInt(AVALANCHE_TESTNET_PARAMS.chainId, 16)],
   })
 
-  const {
-    chainId,
-    active,
-    account,
-    library,
-    connector,
-    activate,
-    deactivate,
-    error,
-  } = useWeb3React()
+  const { active, connector, activate, deactivate, error } = useWeb3React()
 
-  console.log(error)
   async function connect() {
-    console.log('connect')
     try {
       await activate(injected)
     } catch (ex) {
@@ -44,7 +35,6 @@ const Web3Connector = () => {
   }
 
   async function disconnect() {
-    console.log('disconnect')
     try {
       deactivate()
     } catch (ex) {
@@ -72,24 +62,11 @@ const Web3Connector = () => {
     }
   }, [AVALANCHE_TESTNET_PARAMS, connector, injected, isUnsupportedChainIdError])
 
-  console.log({
-    chainId,
-    isUnsupportedChainIdError,
-    c: parseInt(AVALANCHE_TESTNET_PARAMS.chainId, 16),
-  })
-
   return (
     <div className={styles.connector}>
       {isUnsupportedChainIdError ? <p>Network change required</p> : null}
-      <button onClick={connect}>Connect to MetaMask</button>
-      {active ? (
-        <span className={styles.address}>
-          Connected with <b>{account}</b>
-        </span>
-      ) : (
-        <span className={styles.address}>Not connected</span>
-      )}
-      <button onClick={disconnect}>Disconnect</button>
+      <Web3WalletButton connect={connect} />
+      {active ? <button onClick={disconnect}>Disconnect</button> : null}
     </div>
   )
 }
