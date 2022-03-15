@@ -19,17 +19,20 @@ import { ReactComponent as Netlify } from './icons/netlify.svg'
 import AssetButton from './components/AssetButton'
 import UpdateApp from './components/UpdateApp'
 import Web3Connector from './components/Web3Connector'
+import Mint from './components/Mint'
 
 import { Web3ReactProvider } from '@web3-react/core'
 import Web3 from 'web3'
 
 import useAssets from './useAssets'
 import styles from './App.module.css'
+import Loader from './components/Loader'
 
 function App() {
   const svgElement = useRef<SVGSVGElement>(null)
   const [selectedLayer, setSelectedLayer] = useState<Layer>(getDefaultLayer())
   const { selectedAssets, addAsset, randomize, reset } = useAssets()
+  const [isLoading, setIsLoading] = useState(false)
 
   const isAssetsSelected = (assetName?: string) => {
     if (!selectedLayer) return false
@@ -55,6 +58,7 @@ function App() {
           </div>
         </div>
         <main className={styles.main}>
+          { isLoading ? <Loader /> : null }
           <div className={styles.canvas}>
             <svg
               ref={svgElement}
@@ -141,6 +145,8 @@ function App() {
             >
               <Download height="24px" width="24px" />
             </button>
+
+            <Mint svgRef={svgElement} setIsLoading={setIsLoading}/>
           </div>
           <UpdateApp />
         </main>
